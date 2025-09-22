@@ -1,0 +1,264 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getProfile } from '@/lib/sanity';
+
+// Fetch profile from Sanity (will be empty for now but won't error)
+const profile = await getProfile();
+
+// Mock data for demonstration until Sanity is set up
+const mockProfile = {
+  name: 'mhtoin',
+  title: 'Full-Stack Developer & Digital Creator',
+  bio: 'I am a passionate full-stack developer with over 5 years of experience creating web applications and digital experiences. I love working with modern technologies and am always eager to learn new tools and frameworks.',
+  email: 'hello@mhtoin.dev',
+  linkedinUrl: 'https://linkedin.com/in/mhtoin',
+  githubUrl: 'https://github.com/mhtoin',
+  twitterUrl: 'https://twitter.com/mhtoin',
+  skills: [
+    'JavaScript', 'TypeScript', 'React', 'Vue.js', 'Astro', 'Node.js', 
+    'Python', 'PostgreSQL', 'MongoDB', 'Docker', 'AWS', 'Tailwind CSS'
+  ]
+};
+
+const profileData = profile || mockProfile;
+
+const experiences = [
+  {
+    title: 'Senior Full-Stack Developer',
+    company: 'Tech Innovators Inc.',
+    period: '2022 - Present',
+    description: 'Lead development of scalable web applications using React, Node.js, and AWS. Mentored junior developers and implemented CI/CD pipelines.',
+    technologies: ['React', 'Node.js', 'AWS', 'Docker', 'PostgreSQL']
+  },
+  {
+    title: 'Full-Stack Developer',
+    company: 'Digital Solutions Co.',
+    period: '2020 - 2022',
+    description: 'Developed and maintained multiple client projects using various technologies. Collaborated with design teams to implement pixel-perfect UIs.',
+    technologies: ['Vue.js', 'Express.js', 'MongoDB', 'Tailwind CSS']
+  },
+  {
+    title: 'Frontend Developer',
+    company: 'Creative Agency Ltd.',
+    period: '2019 - 2020',
+    description: 'Created responsive websites and interactive web applications. Focused on performance optimization and user experience.',
+    technologies: ['JavaScript', 'SCSS', 'Webpack', 'Firebase']
+  }
+];
+
+const education = [
+  {
+    degree: 'Bachelor of Science in Computer Science',
+    school: 'University of Technology',
+    period: '2015 - 2019',
+    description: 'Focused on software engineering, algorithms, and data structures. Graduated with honors.'
+  }
+];
+---
+
+<BaseLayout 
+  title="About - mhtoin" 
+  description="Learn more about mhtoin, a passionate full-stack developer with expertise in modern web technologies."
+>
+  <!-- Hero Section -->
+  <section class="section-padding bg-gradient-to-br from-primary-50 via-white to-accent-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800">
+    <div class="container-custom">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <!-- Profile Image -->
+        <div class="order-2 lg:order-1">
+          <div class="relative">
+            <div class="w-80 h-80 mx-auto bg-gradient-to-br from-primary-200 to-accent-200 dark:from-primary-800 dark:to-accent-800 rounded-full flex items-center justify-center">
+              <div class="text-9xl">👨‍💻</div>
+            </div>
+            <!-- Decorative elements -->
+            <div class="absolute -top-4 -right-4 w-24 h-24 bg-primary-100 dark:bg-primary-900 rounded-full opacity-50 animate-float"></div>
+            <div class="absolute -bottom-4 -left-4 w-32 h-32 bg-accent-100 dark:bg-accent-900 rounded-full opacity-50 animate-float" style="animation-delay: 2s;"></div>
+          </div>
+        </div>
+        
+        <!-- Profile Info -->
+        <div class="order-1 lg:order-2">
+          <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+            About Me
+          </h1>
+          <h2 class="text-2xl md:text-3xl text-primary-600 dark:text-primary-400 font-semibold mb-6">
+            {profileData.title}
+          </h2>
+          <p class="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
+            {profileData.bio}
+          </p>
+          
+          <!-- Contact Info -->
+          <div class="space-y-4 mb-8">
+            <div class="flex items-center space-x-3">
+              <svg class="w-5 h-5 text-primary-600 dark:text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              <a href={`mailto:${profileData.email}`} class="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                {profileData.email}
+              </a>
+            </div>
+            
+            <div class="flex items-center space-x-3">
+              <svg class="w-5 h-5 text-primary-600 dark:text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <span class="text-gray-700 dark:text-gray-300">
+                Remote / Finland
+              </span>
+            </div>
+          </div>
+          
+          <!-- Social Links -->
+          <div class="flex space-x-4">
+            {profileData.githubUrl && (
+              <a 
+                href={profileData.githubUrl} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="btn btn-secondary btn-sm"
+                aria-label="GitHub Profile"
+              >
+                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                GitHub
+              </a>
+            )}
+            {profileData.linkedinUrl && (
+              <a 
+                href={profileData.linkedinUrl} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="btn btn-secondary btn-sm"
+                aria-label="LinkedIn Profile"
+              >
+                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+                LinkedIn
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Skills Section -->
+  <section class="section-padding bg-white dark:bg-gray-900">
+    <div class="container-custom">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white text-center mb-16">
+        Skills & Technologies
+      </h2>
+      
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {profileData.skills?.map((skill) => (
+          <div class="card p-4 text-center hover:shadow-md transition-shadow">
+            <span class="text-gray-800 dark:text-gray-200 font-medium">
+              {skill}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- Experience Section -->
+  <section class="section-padding bg-gray-50 dark:bg-gray-800">
+    <div class="container-custom">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white text-center mb-16">
+        Experience
+      </h2>
+      
+      <div class="max-w-4xl mx-auto">
+        <div class="relative">
+          <!-- Timeline line -->
+          <div class="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 w-0.5 h-full bg-primary-200 dark:bg-primary-800"></div>
+          
+          {experiences.map((exp, index) => (
+            <div class={`relative flex ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} items-center mb-12`}>
+              <!-- Timeline dot -->
+              <div class="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-4 h-4 bg-primary-600 dark:bg-primary-400 rounded-full border-4 border-white dark:border-gray-800"></div>
+              
+              <!-- Content -->
+              <div class={`card p-6 ml-12 md:ml-0 ${index % 2 === 0 ? 'md:mr-8 md:ml-0' : 'md:ml-8 md:mr-0'} md:w-1/2`}>
+                <div class="mb-2">
+                  <span class="text-sm text-primary-600 dark:text-primary-400 font-semibold">
+                    {exp.period}
+                  </span>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-1">
+                  {exp.title}
+                </h3>
+                <h4 class="text-lg text-gray-600 dark:text-gray-400 mb-3">
+                  {exp.company}
+                </h4>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                  {exp.description}
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  {exp.technologies.map((tech) => (
+                    <span class="px-2 py-1 text-xs font-medium bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 rounded-full">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Education Section -->
+  <section class="section-padding bg-white dark:bg-gray-900">
+    <div class="container-custom">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white text-center mb-16">
+        Education
+      </h2>
+      
+      <div class="max-w-2xl mx-auto">
+        {education.map((edu) => (
+          <div class="card p-6">
+            <div class="mb-2">
+              <span class="text-sm text-primary-600 dark:text-primary-400 font-semibold">
+                {edu.period}
+              </span>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-1">
+              {edu.degree}
+            </h3>
+            <h4 class="text-lg text-gray-600 dark:text-gray-400 mb-3">
+              {edu.school}
+            </h4>
+            <p class="text-gray-600 dark:text-gray-400">
+              {edu.description}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- CTA Section -->
+  <section class="section-padding bg-primary-600 dark:bg-primary-800">
+    <div class="container-custom text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+        Let's Connect
+      </h2>
+      <p class="text-xl text-primary-100 mb-8 max-w-2xl mx-auto">
+        I'm always open to discussing new opportunities, collaborating on interesting projects, 
+        or just having a chat about technology and development.
+      </p>
+      <a 
+        href={`mailto:${profileData.email}`}
+        class="btn bg-white text-primary-600 hover:bg-gray-100 btn-lg"
+      >
+        Get In Touch
+      </a>
+    </div>
+  </section>
+</BaseLayout>

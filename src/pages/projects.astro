@@ -1,0 +1,296 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getProjects } from '@/lib/sanity';
+
+// Fetch projects from Sanity (will be empty for now but won't error)
+const projects = await getProjects();
+
+// Mock data for demonstration until Sanity is set up
+const mockProjects = [
+  {
+    _id: '1',
+    title: 'E-commerce Platform',
+    description: 'A modern e-commerce solution built with React, Node.js, and PostgreSQL. Features include user authentication, payment processing, inventory management, and admin dashboard.',
+    technologies: ['React', 'Node.js', 'PostgreSQL', 'Stripe', 'Redux', 'Express.js'],
+    image: { asset: { url: '/project-1.jpg' }, alt: 'E-commerce Platform' },
+    liveUrl: 'https://example.com',
+    githubUrl: 'https://github.com/mhtoin/ecommerce',
+    featured: true,
+    publishedAt: '2024-01-15'
+  },
+  {
+    _id: '2',
+    title: 'Task Management App',
+    description: 'A collaborative task management application with real-time updates, team collaboration features, and intuitive drag-and-drop interface.',
+    technologies: ['Vue.js', 'Firebase', 'TypeScript', 'Tailwind CSS', 'Vuex', 'Socket.io'],
+    image: { asset: { url: '/project-2.jpg' }, alt: 'Task Management App' },
+    liveUrl: 'https://example.com',
+    githubUrl: 'https://github.com/mhtoin/task-manager',
+    featured: true,
+    publishedAt: '2024-02-10'
+  },
+  {
+    _id: '3',
+    title: 'Weather Dashboard',
+    description: 'A beautiful weather dashboard with location-based forecasts, interactive charts, and customizable widgets for weather data visualization.',
+    technologies: ['Astro', 'TypeScript', 'OpenWeather API', 'Chart.js', 'Tailwind CSS'],
+    image: { asset: { url: '/project-3.jpg' }, alt: 'Weather Dashboard' },
+    liveUrl: 'https://example.com',
+    githubUrl: 'https://github.com/mhtoin/weather-dashboard',
+    featured: false,
+    publishedAt: '2024-03-05'
+  },
+  {
+    _id: '4',
+    title: 'Blog Platform',
+    description: 'A full-featured blog platform with markdown support, SEO optimization, and content management system for writers and publishers.',
+    technologies: ['Next.js', 'Sanity', 'Tailwind CSS', 'Vercel', 'TypeScript'],
+    image: { asset: { url: '/project-4.jpg' }, alt: 'Blog Platform' },
+    liveUrl: 'https://example.com',
+    githubUrl: 'https://github.com/mhtoin/blog-platform',
+    featured: false,
+    publishedAt: '2024-03-20'
+  },
+  {
+    _id: '5',
+    title: 'Portfolio Website',
+    description: 'This very portfolio website built with Astro and Sanity CMS, featuring dark/light themes, responsive design, and optimized performance.',
+    technologies: ['Astro', 'Sanity', 'Tailwind CSS', 'TypeScript', 'Vercel'],
+    image: { asset: { url: '/project-5.jpg' }, alt: 'Portfolio Website' },
+    liveUrl: 'https://example.com',
+    githubUrl: 'https://github.com/mhtoin/portfolio',
+    featured: true,
+    publishedAt: '2024-04-01'
+  },
+  {
+    _id: '6',
+    title: 'Fitness Tracker',
+    description: 'A comprehensive fitness tracking application with workout logging, progress analytics, and social features for fitness enthusiasts.',
+    technologies: ['React Native', 'Node.js', 'MongoDB', 'Express.js', 'JWT'],
+    image: { asset: { url: '/project-6.jpg' }, alt: 'Fitness Tracker' },
+    liveUrl: 'https://example.com',
+    githubUrl: 'https://github.com/mhtoin/fitness-tracker',
+    featured: false,
+    publishedAt: '2024-04-15'
+  }
+];
+
+const projectsToShow = projects.length > 0 ? projects : mockProjects;
+
+// Filter and sort options
+const allTechnologies = [...new Set(projectsToShow.flatMap(p => p.technologies || []))].sort();
+---
+
+<BaseLayout 
+  title="Projects - mhtoin" 
+  description="Explore my portfolio of web development projects, featuring modern technologies and innovative solutions."
+>
+  <!-- Header Section -->
+  <section class="section-padding bg-gradient-to-br from-primary-50 via-white to-accent-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800">
+    <div class="container-custom text-center">
+      <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+        My Projects
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+        A collection of projects showcasing my skills in web development, from simple websites 
+        to complex applications. Each project represents a unique challenge and learning experience.
+      </p>
+    </div>
+  </section>
+  
+  <!-- Filter Section -->
+  <section class="py-8 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+    <div class="container-custom">
+      <div class="flex flex-wrap gap-2 justify-center">
+        <button 
+          class="filter-btn active px-4 py-2 text-sm font-medium rounded-full transition-colors focus-visible"
+          data-filter="all"
+        >
+          All Projects
+        </button>
+        <button 
+          class="filter-btn px-4 py-2 text-sm font-medium rounded-full transition-colors focus-visible"
+          data-filter="featured"
+        >
+          Featured
+        </button>
+        {allTechnologies.slice(0, 6).map((tech) => (
+          <button 
+            class="filter-btn px-4 py-2 text-sm font-medium rounded-full transition-colors focus-visible"
+            data-filter={tech.toLowerCase()}
+          >
+            {tech}
+          </button>
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- Projects Grid -->
+  <section class="section-padding">
+    <div class="container-custom">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-grid">
+        {projectsToShow.map((project) => (
+          <div 
+            class="project-card card-hover group"
+            data-technologies={JSON.stringify(project.technologies?.map(t => t.toLowerCase()) || [])}
+            data-featured={project.featured}
+          >
+            <div class="relative overflow-hidden rounded-t-lg">
+              <div class="aspect-video bg-gradient-to-br from-primary-100 to-accent-100 dark:from-primary-900 dark:to-accent-900 flex items-center justify-center relative">
+                <div class="text-8xl opacity-20">
+                  💻
+                </div>
+                {project.featured && (
+                  <div class="absolute top-4 right-4">
+                    <span class="bg-accent-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+                      Featured
+                    </span>
+                  </div>
+                )}
+              </div>
+              <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity"></div>
+            </div>
+            
+            <div class="p-6">
+              <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">
+                {project.title}
+              </h3>
+              <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
+                {project.description}
+              </p>
+              
+              <div class="flex flex-wrap gap-2 mb-6">
+                {project.technologies?.map((tech) => (
+                  <span class="px-2 py-1 text-xs font-medium bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 rounded-full">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+              
+              <div class="flex space-x-3">
+                {project.liveUrl && (
+                  <a 
+                    href={project.liveUrl} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="btn btn-primary btn-sm flex-1 text-center"
+                  >
+                    Live Demo
+                  </a>
+                )}
+                {project.githubUrl && (
+                  <a 
+                    href={project.githubUrl} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="btn btn-secondary btn-sm flex-1 text-center"
+                  >
+                    <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    Code
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      
+      <!-- No results message (hidden by default) -->
+      <div id="no-results" class="text-center py-16 hidden">
+        <div class="text-6xl mb-4">🔍</div>
+        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+          No projects found
+        </h3>
+        <p class="text-gray-600 dark:text-gray-400">
+          Try adjusting your filter criteria to see more projects.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  // Project filtering functionality
+  function setupProjectFiltering() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('.project-card');
+    const noResults = document.getElementById('no-results');
+    
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const filter = button.getAttribute('data-filter');
+        
+        // Update active button
+        filterButtons.forEach(btn => {
+          btn.classList.remove('active');
+          btn.classList.remove('bg-primary-600', 'text-white');
+          btn.classList.add('bg-gray-100', 'dark:bg-gray-800', 'text-gray-700', 'dark:text-gray-300', 'hover:bg-primary-100', 'dark:hover:bg-primary-900');
+        });
+        
+        button.classList.add('active');
+        button.classList.add('bg-primary-600', 'text-white');
+        button.classList.remove('bg-gray-100', 'dark:bg-gray-800', 'text-gray-700', 'dark:text-gray-300', 'hover:bg-primary-100', 'dark:hover:bg-primary-900');
+        
+        // Filter projects
+        let visibleCount = 0;
+        
+        projectCards.forEach(card => {
+          const technologies = JSON.parse(card.getAttribute('data-technologies') || '[]');
+          const isFeatured = card.getAttribute('data-featured') === 'true';
+          
+          let shouldShow = false;
+          
+          if (filter === 'all') {
+            shouldShow = true;
+          } else if (filter === 'featured') {
+            shouldShow = isFeatured;
+          } else {
+            shouldShow = technologies.includes(filter);
+          }
+          
+          if (shouldShow) {
+            card.style.display = 'block';
+            visibleCount++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        
+        // Show/hide no results message
+        if (noResults) {
+          if (visibleCount === 0) {
+            noResults.classList.remove('hidden');
+          } else {
+            noResults.classList.add('hidden');
+          }
+        }
+      });
+    });
+  }
+  
+  // Initialize on page load
+  document.addEventListener('DOMContentLoaded', setupProjectFiltering);
+  
+  // Reinitialize on view transitions
+  document.addEventListener('astro:after-swap', setupProjectFiltering);
+</script>
+
+<style>
+  .filter-btn {
+    @apply bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-primary-100 dark:hover:bg-primary-900;
+  }
+  
+  .filter-btn.active {
+    @apply bg-primary-600 text-white;
+  }
+  
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

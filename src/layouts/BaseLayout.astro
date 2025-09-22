@@ -1,0 +1,104 @@
+---
+import { ViewTransitions } from 'astro:transitions';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import '@/styles/globals.css';
+
+export interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  noindex?: boolean;
+}
+
+const { 
+  title, 
+  description = "Professional portfolio showcasing my projects and experience",
+  image = "/og-image.jpg",
+  noindex = false 
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'http://localhost:4321');
+const socialImageURL = new URL(image, Astro.url).href;
+---
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalURL} />
+    
+    <!-- SEO -->
+    <title>{title}</title>
+    {noindex && <meta name="robots" content="noindex" />}
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={socialImageURL} />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={Astro.url} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={socialImageURL} />
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    
+    <!-- Theme Script -->
+    <script is:inline>
+      // Initialize theme before page renders to prevent flash
+      (function() {
+        function getStoredTheme() {
+          return typeof localStorage !== 'undefined' ? localStorage.getItem('portfolio-theme') : null;
+        }
+        
+        function getSystemTheme() {
+          return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        
+        const theme = getStoredTheme() || getSystemTheme();
+        document.documentElement.classList.toggle('dark', theme === 'dark');
+      })();
+    </script>
+    
+    <ViewTransitions />
+  </head>
+  <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+    <div class="min-h-screen flex flex-col">
+      <Header />
+      
+      <main class="flex-1">
+        <slot />
+      </main>
+      
+      <Footer />
+    </div>
+    
+    <script>
+      import { initializeTheme } from '@/lib/theme';
+      
+      // Initialize theme system after page load
+      document.addEventListener('DOMContentLoaded', () => {
+        initializeTheme();
+      });
+      
+      // Handle view transitions
+      document.addEventListener('astro:after-swap', () => {
+        initializeTheme();
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,214 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Hero from '@/components/Hero.astro';
+import { getFeaturedProjects } from '@/lib/sanity';
+
+// Fetch featured projects from Sanity (will be empty for now but won't error)
+const featuredProjects = await getFeaturedProjects();
+
+// Mock data for demonstration until Sanity is set up
+const mockProjects = [
+  {
+    _id: '1',
+    title: 'E-commerce Platform',
+    description: 'A modern e-commerce solution built with React, Node.js, and PostgreSQL',
+    technologies: ['React', 'Node.js', 'PostgreSQL', 'Stripe'],
+    image: { asset: { url: '/project-1.jpg' }, alt: 'E-commerce Platform' },
+    liveUrl: 'https://example.com',
+    githubUrl: 'https://github.com/mhtoin/ecommerce'
+  },
+  {
+    _id: '2',
+    title: 'Task Management App',
+    description: 'A collaborative task management application with real-time updates',
+    technologies: ['Vue.js', 'Firebase', 'TypeScript', 'Tailwind CSS'],
+    image: { asset: { url: '/project-2.jpg' }, alt: 'Task Management App' },
+    liveUrl: 'https://example.com',
+    githubUrl: 'https://github.com/mhtoin/task-manager'
+  },
+  {
+    _id: '3',
+    title: 'Weather Dashboard',
+    description: 'A beautiful weather dashboard with location-based forecasts',
+    technologies: ['Astro', 'TypeScript', 'OpenWeather API', 'Chart.js'],
+    image: { asset: { url: '/project-3.jpg' }, alt: 'Weather Dashboard' },
+    liveUrl: 'https://example.com',
+    githubUrl: 'https://github.com/mhtoin/weather-dashboard'
+  }
+];
+
+const projectsToShow = featuredProjects.length > 0 ? featuredProjects : mockProjects;
+---
+
+<BaseLayout title="mhtoin - Full-Stack Developer & Digital Creator">
+  <!-- Hero Section -->
+  <Hero />
+  
+  <!-- Featured Projects Section -->
+  <section class="section-padding bg-gray-50 dark:bg-gray-800">
+    <div class="container-custom">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          Featured Projects
+        </h2>
+        <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          Here are some of my recent projects that showcase my skills and passion for creating 
+          innovative digital solutions.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {projectsToShow.map((project) => (
+          <div class="card-hover group">
+            <div class="relative overflow-hidden rounded-t-lg">
+              <div class="aspect-video bg-gradient-to-br from-primary-100 to-accent-100 dark:from-primary-900 dark:to-accent-900 flex items-center justify-center">
+                <div class="text-6xl opacity-20">
+                  💻
+                </div>
+              </div>
+              <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity"></div>
+            </div>
+            
+            <div class="p-6">
+              <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                {project.title}
+              </h3>
+              <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
+                {project.description}
+              </p>
+              
+              <div class="flex flex-wrap gap-2 mb-4">
+                {project.technologies?.slice(0, 3).map((tech) => (
+                  <span class="px-2 py-1 text-xs font-medium bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 rounded-full">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+              
+              <div class="flex space-x-3">
+                {project.liveUrl && (
+                  <a 
+                    href={project.liveUrl} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="btn btn-primary btn-sm"
+                  >
+                    Live Demo
+                  </a>
+                )}
+                {project.githubUrl && (
+                  <a 
+                    href={project.githubUrl} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="btn btn-secondary btn-sm"
+                  >
+                    Code
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      
+      <div class="text-center mt-12">
+        <a href="/projects" class="btn btn-primary btn-lg">
+          View All Projects
+        </a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Skills Section -->
+  <section class="section-padding">
+    <div class="container-custom">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          Skills & Technologies
+        </h2>
+        <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          I work with modern technologies to build scalable, performant applications.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-lg flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-primary-600 dark:text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Frontend</h3>
+          <p class="text-gray-600 dark:text-gray-400 mb-4">
+            Creating beautiful, responsive user interfaces
+          </p>
+          <div class="flex flex-wrap gap-2 justify-center">
+            {['React', 'Vue.js', 'Astro', 'TypeScript', 'Tailwind CSS'].map((skill) => (
+              <span class="px-3 py-1 text-sm bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-full">
+                {skill}
+              </span>
+            ))}
+          </div>
+        </div>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-accent-100 dark:bg-accent-900 rounded-lg flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-accent-600 dark:text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Backend</h3>
+          <p class="text-gray-600 dark:text-gray-400 mb-4">
+            Building robust APIs and server-side solutions
+          </p>
+          <div class="flex flex-wrap gap-2 justify-center">
+            {['Node.js', 'Python', 'PostgreSQL', 'MongoDB', 'Docker'].map((skill) => (
+              <span class="px-3 py-1 text-sm bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-full">
+                {skill}
+              </span>
+            ))}
+          </div>
+        </div>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-purple-600 dark:text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">DevOps</h3>
+          <p class="text-gray-600 dark:text-gray-400 mb-4">
+            Deploying and maintaining scalable applications
+          </p>
+          <div class="flex flex-wrap gap-2 justify-center">
+            {['AWS', 'Vercel', 'GitHub Actions', 'Nginx', 'Linux'].map((skill) => (
+              <span class="px-3 py-1 text-sm bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-full">
+                {skill}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- CTA Section -->
+  <section class="section-padding bg-primary-600 dark:bg-primary-800">
+    <div class="container-custom text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+        Let's Work Together
+      </h2>
+      <p class="text-xl text-primary-100 mb-8 max-w-2xl mx-auto">
+        I'm always interested in new opportunities and exciting projects. 
+        Let's discuss how we can bring your ideas to life.
+      </p>
+      <a 
+        href="/about" 
+        class="btn bg-white text-primary-600 hover:bg-gray-100 btn-lg"
+      >
+        Get In Touch
+      </a>
+    </div>
+  </section>
+</BaseLayout>

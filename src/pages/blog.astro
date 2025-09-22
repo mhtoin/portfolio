@@ -1,0 +1,324 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getBlogPosts } from '@/lib/sanity';
+
+// Fetch blog posts from Sanity (will be empty for now but won't error)
+const blogPosts = await getBlogPosts();
+
+// Mock data for demonstration until Sanity is set up
+const mockBlogPosts = [
+  {
+    _id: '1',
+    title: 'Building Modern Web Applications with Astro',
+    slug: { current: 'building-modern-web-applications-with-astro' },
+    excerpt: 'Discover how Astro revolutionizes web development with its island architecture and built-in optimizations for performance.',
+    content: null,
+    image: { asset: { url: '/blog-1.jpg' }, alt: 'Astro Framework' },
+    tags: ['Astro', 'Web Development', 'Performance', 'JavaScript'],
+    publishedAt: '2024-03-15T10:00:00Z'
+  },
+  {
+    _id: '2',
+    title: 'The Future of CSS: What\'s Coming in 2024',
+    slug: { current: 'the-future-of-css-whats-coming-in-2024' },
+    excerpt: 'Explore the exciting new CSS features and specifications that will shape how we style web applications in the coming year.',
+    content: null,
+    image: { asset: { url: '/blog-2.jpg' }, alt: 'CSS Future' },
+    tags: ['CSS', 'Web Design', 'Frontend', 'Trends'],
+    publishedAt: '2024-03-10T14:30:00Z'
+  },
+  {
+    _id: '3',
+    title: 'TypeScript Best Practices for Large Scale Applications',
+    slug: { current: 'typescript-best-practices-for-large-scale-applications' },
+    excerpt: 'Learn how to structure and organize TypeScript code for maintainable, scalable applications with real-world examples.',
+    content: null,
+    image: { asset: { url: '/blog-3.jpg' }, alt: 'TypeScript Code' },
+    tags: ['TypeScript', 'Best Practices', 'Architecture', 'JavaScript'],
+    publishedAt: '2024-03-05T09:15:00Z'
+  },
+  {
+    _id: '4',
+    title: 'Optimizing Web Performance: A Complete Guide',
+    slug: { current: 'optimizing-web-performance-complete-guide' },
+    excerpt: 'Comprehensive guide to web performance optimization covering Core Web Vitals, loading strategies, and advanced techniques.',
+    content: null,
+    image: { asset: { url: '/blog-4.jpg' }, alt: 'Web Performance' },
+    tags: ['Performance', 'Optimization', 'Core Web Vitals', 'SEO'],
+    publishedAt: '2024-02-28T16:45:00Z'
+  },
+  {
+    _id: '5',
+    title: 'Getting Started with Sanity CMS',
+    slug: { current: 'getting-started-with-sanity-cms' },
+    excerpt: 'A beginner-friendly introduction to Sanity CMS, covering setup, schema design, and integration with modern frameworks.',
+    content: null,
+    image: { asset: { url: '/blog-5.jpg' }, alt: 'Sanity CMS' },
+    tags: ['Sanity', 'CMS', 'Content Management', 'Headless'],
+    publishedAt: '2024-02-20T11:20:00Z'
+  },
+  {
+    _id: '6',
+    title: 'Dark Mode Implementation: Design and Development',
+    slug: { current: 'dark-mode-implementation-design-and-development' },
+    excerpt: 'Complete guide to implementing dark mode in web applications, covering design principles and technical implementation.',
+    content: null,
+    image: { asset: { url: '/blog-6.jpg' }, alt: 'Dark Mode Design' },
+    tags: ['Dark Mode', 'UX Design', 'CSS', 'Accessibility'],
+    publishedAt: '2024-02-15T13:10:00Z'
+  }
+];
+
+const postsToShow = blogPosts.length > 0 ? blogPosts : mockBlogPosts;
+
+// Get all unique tags
+const allTags = [...new Set(postsToShow.flatMap(post => post.tags || []))].sort();
+
+// Format date helper
+function formatDate(dateString: string) {
+  return new Date(dateString).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+}
+
+// Calculate reading time (assuming 200 words per minute)
+function calculateReadingTime(content: string = '') {
+  const wordsPerMinute = 200;
+  const words = content.split(' ').length;
+  const minutes = Math.ceil(words / wordsPerMinute);
+  return Math.max(1, minutes);
+}
+---
+
+<BaseLayout 
+  title="Blog - mhtoin" 
+  description="Read about web development, programming, and technology insights from mhtoin's blog."
+>
+  <!-- Header Section -->
+  <section class="section-padding bg-gradient-to-br from-primary-50 via-white to-accent-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800">
+    <div class="container-custom text-center">
+      <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+        Blog
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+        Thoughts, tutorials, and insights about web development, programming, and the ever-evolving 
+        world of technology. Join me on this journey of continuous learning and discovery.
+      </p>
+    </div>
+  </section>
+  
+  <!-- Filter Section -->
+  <section class="py-8 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+    <div class="container-custom">
+      <div class="flex flex-wrap gap-2 justify-center">
+        <button 
+          class="tag-filter active px-4 py-2 text-sm font-medium rounded-full transition-colors focus-visible"
+          data-tag="all"
+        >
+          All Posts
+        </button>
+        {allTags.slice(0, 8).map((tag) => (
+          <button 
+            class="tag-filter px-4 py-2 text-sm font-medium rounded-full transition-colors focus-visible"
+            data-tag={tag.toLowerCase()}
+          >
+            {tag}
+          </button>
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- Blog Posts Grid -->
+  <section class="section-padding">
+    <div class="container-custom">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="blog-grid">
+        {postsToShow.map((post) => (
+          <article 
+            class="blog-card card-hover group"
+            data-tags={JSON.stringify(post.tags?.map(t => t.toLowerCase()) || [])}
+          >
+            <div class="relative overflow-hidden rounded-t-lg">
+              <div class="aspect-video bg-gradient-to-br from-primary-100 to-accent-100 dark:from-primary-900 dark:to-accent-900 flex items-center justify-center">
+                <div class="text-6xl opacity-20">
+                  📝
+                </div>
+              </div>
+              <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity"></div>
+            </div>
+            
+            <div class="p-6">
+              <!-- Meta Info -->
+              <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mb-3">
+                <time datetime={post.publishedAt}>
+                  {formatDate(post.publishedAt)}
+                </time>
+                <span>
+                  {calculateReadingTime(post.excerpt)} min read
+                </span>
+              </div>
+              
+              <!-- Title -->
+              <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-3 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                <a href={`/blog/${post.slug.current}`} class="focus-visible">
+                  {post.title}
+                </a>
+              </h2>
+              
+              <!-- Excerpt -->
+              <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
+                {post.excerpt}
+              </p>
+              
+              <!-- Tags -->
+              <div class="flex flex-wrap gap-2 mb-4">
+                {post.tags?.slice(0, 3).map((tag) => (
+                  <span class="px-2 py-1 text-xs font-medium bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 rounded-full">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              
+              <!-- Read More Link -->
+              <a 
+                href={`/blog/${post.slug.current}`}
+                class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium transition-colors focus-visible"
+              >
+                Read More
+                <svg class="ml-1 w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+      
+      <!-- No results message (hidden by default) -->
+      <div id="no-results" class="text-center py-16 hidden">
+        <div class="text-6xl mb-4">🔍</div>
+        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+          No posts found
+        </h3>
+        <p class="text-gray-600 dark:text-gray-400">
+          Try selecting a different tag to see more posts.
+        </p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Newsletter Section -->
+  <section class="section-padding bg-gray-50 dark:bg-gray-800">
+    <div class="container-custom">
+      <div class="max-w-2xl mx-auto text-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          Stay Updated
+        </h2>
+        <p class="text-lg text-gray-600 dark:text-gray-400 mb-8">
+          Subscribe to get notified about new blog posts and updates. No spam, unsubscribe at any time.
+        </p>
+        
+        <form class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+          <input
+            type="email"
+            placeholder="Enter your email"
+            class="flex-1 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            required
+          />
+          <button
+            type="submit"
+            class="btn btn-primary px-6 py-3 whitespace-nowrap"
+          >
+            Subscribe
+          </button>
+        </form>
+        
+        <p class="text-sm text-gray-500 dark:text-gray-400 mt-4">
+          Join 500+ developers who read my weekly insights.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  // Blog post filtering functionality
+  function setupBlogFiltering() {
+    const tagFilters = document.querySelectorAll('.tag-filter');
+    const blogCards = document.querySelectorAll('.blog-card');
+    const noResults = document.getElementById('no-results');
+    
+    tagFilters.forEach(button => {
+      button.addEventListener('click', () => {
+        const selectedTag = button.getAttribute('data-tag');
+        
+        // Update active button
+        tagFilters.forEach(btn => {
+          btn.classList.remove('active');
+          btn.classList.remove('bg-primary-600', 'text-white');
+          btn.classList.add('bg-gray-100', 'dark:bg-gray-800', 'text-gray-700', 'dark:text-gray-300', 'hover:bg-primary-100', 'dark:hover:bg-primary-900');
+        });
+        
+        button.classList.add('active');
+        button.classList.add('bg-primary-600', 'text-white');
+        button.classList.remove('bg-gray-100', 'dark:bg-gray-800', 'text-gray-700', 'dark:text-gray-300', 'hover:bg-primary-100', 'dark:hover:bg-primary-900');
+        
+        // Filter blog posts
+        let visibleCount = 0;
+        
+        blogCards.forEach(card => {
+          const tags = JSON.parse(card.getAttribute('data-tags') || '[]');
+          
+          let shouldShow = false;
+          
+          if (selectedTag === 'all') {
+            shouldShow = true;
+          } else {
+            shouldShow = tags.includes(selectedTag);
+          }
+          
+          if (shouldShow) {
+            card.style.display = 'block';
+            visibleCount++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        
+        // Show/hide no results message
+        if (noResults) {
+          if (visibleCount === 0) {
+            noResults.classList.remove('hidden');
+          } else {
+            noResults.classList.add('hidden');
+          }
+        }
+      });
+    });
+  }
+  
+  // Initialize on page load
+  document.addEventListener('DOMContentLoaded', setupBlogFiltering);
+  
+  // Reinitialize on view transitions
+  document.addEventListener('astro:after-swap', setupBlogFiltering);
+</script>
+
+<style>
+  .tag-filter {
+    @apply bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-primary-100 dark:hover:bg-primary-900;
+  }
+  
+  .tag-filter.active {
+    @apply bg-primary-600 text-white;
+  }
+  
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>
