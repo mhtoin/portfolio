@@ -1,0 +1,155 @@
+---
+export const prerender = false;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Portfolio CMS - Sanity Studio</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      html, body {
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        font-family: 'Inter', sans-serif;
+        background-color: #f8fafc;
+      }
+      
+      .container {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+      }
+      
+      .card {
+        max-width: 600px;
+        text-align: center;
+        background: white;
+        padding: 3rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+      
+      .icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+      
+      .title {
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: #1f2937;
+      }
+      
+      .description {
+        font-size: 1.1rem;
+        color: #6b7280;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+      }
+      
+      .instructions {
+        text-align: left;
+        background: #f9fafb;
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+      }
+      
+      .instructions h3 {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: #374151;
+      }
+      
+      .instructions ol {
+        margin: 0;
+        padding-left: 1.5rem;
+        color: #4b5563;
+        line-height: 1.6;
+      }
+      
+      .instructions a {
+        color: #3b82f6;
+        text-decoration: none;
+      }
+      
+      .instructions a:hover {
+        text-decoration: underline;
+      }
+      
+      .instructions code {
+        background: #e5e7eb;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.875rem;
+      }
+      
+      .project-id {
+        font-size: 0.875rem;
+        color: #9ca3af;
+      }
+      
+      .project-id code {
+        background: #fee2e2;
+        color: #dc2626;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+      }
+      
+      .nav-link {
+        display: inline-block;
+        margin-top: 2rem;
+        padding: 0.75rem 1.5rem;
+        background: #3b82f6;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 500;
+        transition: background-color 0.2s;
+      }
+      
+      .nav-link:hover {
+        background: #2563eb;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="icon">🎨</div>
+        
+        <h1 class="title">Sanity Studio Setup Required</h1>
+        
+        <p class="description">
+          To use the CMS, you need to configure your Sanity project credentials.
+        </p>
+        
+        <div class="instructions">
+          <h3>Setup Instructions:</h3>
+          <ol>
+            <li>Create a project at <a href="https://sanity.io" target="_blank" rel="noopener noreferrer">sanity.io</a></li>
+            <li>Copy your Project ID and Dataset name</li>
+            <li>Update your <code>.env</code> file with your credentials</li>
+            <li>Restart the development server</li>
+          </ol>
+        </div>
+        
+        <div class="project-id">
+          Current Project ID: <code>your-project-id</code>
+        </div>
+        
+        <a href="/" class="nav-link">← Back to Portfolio</a>
+      </div>
+    </div>
+  </body>
+</html>

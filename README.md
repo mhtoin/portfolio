@@ -31,13 +31,19 @@ A modern, professional portfolio website built with Astro and Sanity CMS. Featur
    # Edit .env with your Sanity project details
    ```
 
-4. **Start development server**
+4. **Create a Sanity project** (if you haven't already)
+   - Go to [sanity.io](https://www.sanity.io/) and create a new project
+   - Note your Project ID and Dataset name
+   - Update the environment variables in `.env`
+
+5. **Start development server**
    ```bash
    npm run dev
    ```
 
-5. **Open your browser**
-   Navigate to `http://localhost:4321`
+6. **Access the CMS**
+   - Portfolio: `http://localhost:4321`
+   - Sanity Studio: `http://localhost:4321/studio`
 
 ## 🛠️ Built With
 
@@ -86,12 +92,52 @@ A modern, professional portfolio website built with Astro and Sanity CMS. Featur
 3. **Theme**: Customize colors and design tokens in the Tailwind config
 4. **Components**: Edit components in `src/components/` for layout changes
 
+## 📝 Content Management
+
+This portfolio includes a **self-hosted Sanity Studio** for easy content management:
+
+### 🎯 Content Types
+
+- **Profile**: Personal information, bio, skills, and contact details
+- **Projects**: Portfolio projects with descriptions, technologies, and links
+- **Blog Posts**: Articles with rich text content, tags, and metadata
+
+### 🔧 Studio Features
+
+- **Rich Text Editor**: Full-featured editor with code blocks, images, and formatting
+- **Media Management**: Upload and organize images with automatic optimization
+- **Content Preview**: See how content will look on the live site
+- **Version History**: Track changes and revert if needed
+- **Collaborative Editing**: Multiple users can edit content simultaneously
+
+### 🚀 Studio Access
+
+- **Development**: Visit `http://localhost:4321/studio` while running `npm run dev`
+- **Production**: The studio is deployed alongside your site at `/studio`
+- **Security**: Studio access requires Sanity authentication
+
+### 📁 Schema Structure
+
+The studio includes predefined schemas for all content types:
+- Rich content blocks with code syntax highlighting
+- Image fields with alt text and hotspot support
+- SEO-friendly slug generation
+- Featured content flags
+- Publication status management
+
+To set up Sanity CMS:
+
+1. Create a new Sanity project at [sanity.io](https://www.sanity.io/)
+2. Set up your schemas for projects, blog posts, and profile
+3. Add your project ID and dataset to environment variables
+4. Access the studio at `/studio` to start adding content
+
 ## 🌐 Deployment
 
 This site can be deployed to any static hosting service:
 
 - **Vercel** (recommended)
-- **Netlify**
+- **Netlify** 
 - **GitHub Pages**
 - **Cloudflare Pages**
 
@@ -101,15 +147,6 @@ This site can be deployed to any static hosting service:
 2. Connect your repository to Vercel
 3. Add environment variables in Vercel dashboard
 4. Deploy!
-
-## 📝 Content Management
-
-To set up Sanity CMS:
-
-1. Create a new Sanity project at [sanity.io](https://www.sanity.io/)
-2. Set up your schemas for projects, blog posts, and profile
-3. Add your project ID and dataset to environment variables
-4. Deploy your Sanity Studio
 
 ## 🤝 Contributing
 

@@ -1,0 +1,14 @@
+---
+// This route will handle all studio paths like /studio, /studio/desk, etc.
+export const prerender = false;
+
+// Redirect all studio subroutes to the main studio page for now
+const response = new Response(null, {
+  status: 302,
+  headers: {
+    Location: '/studio'
+  }
+});
+
+return response;
+---
