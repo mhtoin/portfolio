@@ -47,7 +47,7 @@ const projectsToShow = featuredProjects.length > 0 ? featuredProjects : mockProj
   <Hero />
   
   <!-- Featured Projects Section -->
-  <section class="section-padding bg-gray-50 dark:bg-gray-800">
+  <section class="section-padding bg-gradient-to-br from-lavender-50 via-pastel-surface to-mint-50 dark:from-pastel-surface-dark dark:via-primary-900/10 dark:to-mint-900/10">
     <div class="container-custom">
       <div class="text-center mb-16">
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
@@ -60,11 +60,17 @@ const projectsToShow = featuredProjects.length > 0 ? featuredProjects : mockProj
       </div>
       
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {projectsToShow.map((project) => (
+        {projectsToShow.map((project, index) => (
           <div class="card-hover group">
             <div class="relative overflow-hidden rounded-t-lg">
-              <div class="aspect-video bg-gradient-to-br from-primary-100 to-accent-100 dark:from-primary-900 dark:to-accent-900 flex items-center justify-center">
-                <div class="text-6xl opacity-20">
+              <div class={`aspect-video flex items-center justify-center ${
+                index % 3 === 0 
+                  ? 'bg-gradient-to-br from-lavender-200 to-primary-200 dark:from-lavender-800 dark:to-primary-800'
+                  : index % 3 === 1
+                  ? 'bg-gradient-to-br from-accent-200 to-rose-200 dark:from-accent-800 dark:to-rose-800'
+                  : 'bg-gradient-to-br from-mint-200 to-sky-200 dark:from-mint-800 dark:to-sky-800'
+              }`}>
+                <div class="text-6xl opacity-30">
                   💻
                 </div>
               </div>
@@ -136,8 +142,8 @@ const projectsToShow = featuredProjects.length > 0 ? featuredProjects : mockProj
       
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div class="text-center">
-          <div class="w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-lg flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8 text-primary-600 dark:text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div class="w-16 h-16 bg-gradient-to-br from-lavender-200 to-primary-300 dark:from-lavender-800 dark:to-primary-700 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+            <svg class="w-8 h-8 text-primary-700 dark:text-primary-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
             </svg>
           </div>
@@ -146,8 +152,14 @@ const projectsToShow = featuredProjects.length > 0 ? featuredProjects : mockProj
             Creating beautiful, responsive user interfaces
           </p>
           <div class="flex flex-wrap gap-2 justify-center">
-            {['React', 'Vue.js', 'Astro', 'TypeScript', 'Tailwind CSS'].map((skill) => (
-              <span class="px-3 py-1 text-sm bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-full">
+            {['React', 'Vue.js', 'Astro', 'TypeScript', 'Tailwind CSS'].map((skill, index) => (
+              <span class={`px-3 py-1 text-sm rounded-full ${
+                index % 3 === 0 
+                  ? 'bg-lavender-100 dark:bg-lavender-800 text-lavender-800 dark:text-lavender-200'
+                  : index % 3 === 1
+                  ? 'bg-primary-100 dark:bg-primary-800 text-primary-800 dark:text-primary-200'
+                  : 'bg-mint-100 dark:bg-mint-800 text-mint-800 dark:text-mint-200'
+              }`}>
                 {skill}
               </span>
             ))}
@@ -155,8 +167,8 @@ const projectsToShow = featuredProjects.length > 0 ? featuredProjects : mockProj
         </div>
         
         <div class="text-center">
-          <div class="w-16 h-16 bg-accent-100 dark:bg-accent-900 rounded-lg flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8 text-accent-600 dark:text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div class="w-16 h-16 bg-gradient-to-br from-accent-200 to-rose-300 dark:from-accent-800 dark:to-rose-700 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+            <svg class="w-8 h-8 text-accent-700 dark:text-accent-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
             </svg>
           </div>
@@ -165,8 +177,14 @@ const projectsToShow = featuredProjects.length > 0 ? featuredProjects : mockProj
             Building robust APIs and server-side solutions
           </p>
           <div class="flex flex-wrap gap-2 justify-center">
-            {['Node.js', 'Python', 'PostgreSQL', 'MongoDB', 'Docker'].map((skill) => (
-              <span class="px-3 py-1 text-sm bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-full">
+            {['Node.js', 'Python', 'PostgreSQL', 'MongoDB', 'Docker'].map((skill, index) => (
+              <span class={`px-3 py-1 text-sm rounded-full ${
+                index % 3 === 0 
+                  ? 'bg-accent-100 dark:bg-accent-800 text-accent-800 dark:text-accent-200'
+                  : index % 3 === 1
+                  ? 'bg-rose-100 dark:bg-rose-800 text-rose-800 dark:text-rose-200'
+                  : 'bg-peach-100 dark:bg-peach-800 text-peach-800 dark:text-peach-200'
+              }`}>
                 {skill}
               </span>
             ))}
@@ -174,8 +192,8 @@ const projectsToShow = featuredProjects.length > 0 ? featuredProjects : mockProj
         </div>
         
         <div class="text-center">
-          <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8 text-purple-600 dark:text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div class="w-16 h-16 bg-gradient-to-br from-mint-200 to-sky-300 dark:from-mint-800 dark:to-sky-700 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+            <svg class="w-8 h-8 text-mint-700 dark:text-mint-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
             </svg>
           </div>
@@ -184,8 +202,14 @@ const projectsToShow = featuredProjects.length > 0 ? featuredProjects : mockProj
             Deploying and maintaining scalable applications
           </p>
           <div class="flex flex-wrap gap-2 justify-center">
-            {['AWS', 'Vercel', 'GitHub Actions', 'Nginx', 'Linux'].map((skill) => (
-              <span class="px-3 py-1 text-sm bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-full">
+            {['AWS', 'Vercel', 'GitHub Actions', 'Nginx', 'Linux'].map((skill, index) => (
+              <span class={`px-3 py-1 text-sm rounded-full ${
+                index % 3 === 0 
+                  ? 'bg-mint-100 dark:bg-mint-800 text-mint-800 dark:text-mint-200'
+                  : index % 3 === 1
+                  ? 'bg-sky-100 dark:bg-sky-800 text-sky-800 dark:text-sky-200'
+                  : 'bg-lavender-100 dark:bg-lavender-800 text-lavender-800 dark:text-lavender-200'
+              }`}>
                 {skill}
               </span>
             ))}
@@ -196,18 +220,18 @@ const projectsToShow = featuredProjects.length > 0 ? featuredProjects : mockProj
   </section>
   
   <!-- CTA Section -->
-  <section class="section-padding bg-primary-600 dark:bg-primary-800">
+  <section class="section-padding bg-gradient-to-r from-primary-500 via-accent-500 to-lavender-500 dark:from-primary-700 dark:via-accent-700 dark:to-lavender-700">
     <div class="container-custom text-center">
       <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
         Let's Work Together
       </h2>
-      <p class="text-xl text-primary-100 mb-8 max-w-2xl mx-auto">
+      <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
         I'm always interested in new opportunities and exciting projects. 
         Let's discuss how we can bring your ideas to life.
       </p>
       <a 
         href="/about" 
-        class="btn bg-white text-primary-600 hover:bg-gray-100 btn-lg"
+        class="btn bg-white/90 text-primary-700 hover:bg-white btn-lg shadow-lg backdrop-blur-sm"
       >
         Get In Touch
       </a>
