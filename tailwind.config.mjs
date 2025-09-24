@@ -19,8 +19,8 @@ export default {
           900: '#4c1d95',
         },
         accent: {
-          50: '#fdf2f8',
-          100: '#fce7f3',
+          50: '#fef7f3',
+          100: '#fdf2f8',
           200: '#fbcfe8',
           300: '#f9a8d4',
           400: '#f472b6',
@@ -29,6 +29,32 @@ export default {
           700: '#be185d',
           800: '#9d174d',
           900: '#831843',
+        },
+        // Enhanced pastel pink colors for terminal theme
+        'pastel-pink': {
+          50: '#fef7f3',
+          100: '#fdeef0',
+          200: '#fbd9e1',
+          300: '#f7bbc4',
+          400: '#f29ba7',
+          500: '#ed7c8a',
+          600: '#d15d6f',
+          700: '#a8475a',
+          800: '#7f3246',
+          900: '#5e2433',
+        },
+        // Terminal-inspired colors
+        'terminal': {
+          'green': '#00ff41',
+          'amber': '#ffbf00',
+          'cyan': '#00ffff',
+          'purple': '#bf00ff',
+          'pink': '#ff69b4',
+          'bg': '#0d1117',
+          'bg-light': '#161b22',
+          'border': '#30363d',
+          'text': '#c9d1d9',
+          'text-muted': '#8b949e',
         },
         // Additional pastel colors for variety
         lavender: {
@@ -91,12 +117,14 @@ export default {
           800: '#9f1239',
           900: '#881337',
         },
-        // Custom pastel background colors
+        // Custom pastel background colors with terminal enhancements
         pastel: {
           bg: '#fefbff',
-          'bg-dark': '#2d2a3f',  // Lighter than original #1e1b2e
+          'bg-dark': '#161b22',  // Terminal-inspired dark background
           surface: '#f7f4ff',
-          'surface-dark': '#3e3a4f',  // Lighter than original #2a2636
+          'surface-dark': '#21262d',  // Terminal-inspired dark surface
+          'terminal-bg': '#0d1117',
+          'terminal-surface': '#161b22',
         }
       },
       fontFamily: {
