@@ -28,7 +28,9 @@ A modern, professional portfolio website built with Astro and Sanity CMS. Featur
 3. **Set up environment variables**
    ```bash
    cp .env.example .env
-   # Edit .env with your Sanity project details
+   # Edit .env with your configuration:
+   # - Add your Sanity project details (optional)
+   # - Set PUBLIC_GITHUB_USERNAME to your GitHub username
    ```
 
 4. **Create a Sanity project** (if you haven't already)
@@ -44,6 +46,16 @@ A modern, professional portfolio website built with Astro and Sanity CMS. Featur
 6. **Access the CMS**
    - Portfolio: `http://localhost:4321`
    - Sanity Studio: `http://localhost:4321/studio`
+
+## ✨ Features
+
+- **Automatic GitHub Integration** - Projects are automatically fetched from your GitHub repositories
+- **Sanity CMS Support** - Optional headless CMS for advanced content management
+- **Responsive Design** - Works perfectly on desktop, tablet, and mobile devices
+- **Dark/Light Mode** - Automatic theme switching with system preference detection
+- **Fast Performance** - Built with Astro for optimal loading speeds
+- **SEO Optimized** - Meta tags, Open Graph, and sitemap generation
+- **Type Safety** - Full TypeScript support throughout the codebase
 
 ## 🛠️ Built With
 
@@ -67,6 +79,30 @@ A modern, professional portfolio website built with Astro and Sanity CMS. Featur
 ├── tailwind.config.mjs  # Tailwind configuration
 └── tsconfig.json        # TypeScript configuration
 ```
+
+## 🐙 GitHub Integration
+
+The portfolio automatically fetches and displays your public repositories from GitHub. This provides a dynamic, always up-to-date project showcase without manual maintenance.
+
+### How it works:
+- Fetches public repositories from your GitHub username
+- Filters out forks and archived repositories
+- Determines featured projects based on stars and recent activity
+- Extracts technologies from repository topics and language
+- Falls back to Sanity CMS if configured, then to local mock data
+
+### Configuration:
+Set the `PUBLIC_GITHUB_USERNAME` environment variable to your GitHub username:
+```bash
+PUBLIC_GITHUB_USERNAME=your-github-username
+```
+
+### Featured Project Logic:
+Projects are automatically marked as "featured" if they have:
+- More than 0 stars, OR
+- Recent activity (commits within the last 6 months)
+
+The homepage shows the 3 most recent featured projects, while the projects page displays all repositories with filtering options.
 
 ## 🎨 Pages
 

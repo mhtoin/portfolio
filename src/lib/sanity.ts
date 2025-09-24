@@ -1,4 +1,5 @@
 import { createClient } from '@sanity/client';
+import { getGitHubProjects, getFeaturedGitHubProjects } from './github';
 
 // These should be replaced with actual Sanity project values
 const projectId = process.env.PUBLIC_SANITY_PROJECT_ID || 'your-project-id';
@@ -81,20 +82,32 @@ export const PROFILE_QUERY = `*[_type == "profile"][0]`;
 // Helper functions
 export async function getProjects(): Promise<Project[]> {
   try {
-    return await sanityClient.fetch(PROJECTS_QUERY);
+    const sanityProjects = await sanityClient.fetch(PROJECTS_QUERY);
+    if (sanityProjects && sanityProjects.length > 0) {
+      return sanityProjects;
+    }
   } catch (error) {
-    console.error('Error fetching projects:', error);
-    return [];
+    console.error('Error fetching projects from Sanity:', error);
   }
+  
+  // Fallback to GitHub projects
+  const githubUsername = import.meta.env.PUBLIC_GITHUB_USERNAME || 'mhtoin';
+  return await getGitHubProjects(githubUsername);
 }
 
 export async function getFeaturedProjects(): Promise<Project[]> {
   try {
-    return await sanityClient.fetch(FEATURED_PROJECTS_QUERY);
+    const sanityProjects = await sanityClient.fetch(FEATURED_PROJECTS_QUERY);
+    if (sanityProjects && sanityProjects.length > 0) {
+      return sanityProjects;
+    }
   } catch (error) {
-    console.error('Error fetching featured projects:', error);
-    return [];
+    console.error('Error fetching featured projects from Sanity:', error);
   }
+  
+  // Fallback to GitHub featured projects
+  const githubUsername = import.meta.env.PUBLIC_GITHUB_USERNAME || 'mhtoin';
+  return await getFeaturedGitHubProjects(githubUsername);
 }
 
 export async function getProjectBySlug(slug: string): Promise<Project | null> {
