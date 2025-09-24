@@ -27,33 +27,40 @@ const footerLinks = [
 ];
 ---
 
-<footer class="bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
+<footer class="bg-pastel-surface/80 dark:bg-pastel-terminal-surface/80 border-t-2 border-terminal-border dark:border-terminal-border backdrop-blur-sm">
   <div class="container-custom py-12">
+    <!-- ASCII art divider -->
+    <div class="text-center mb-8">
+      <pre class="ascii-art text-terminal-green dark:text-terminal-green text-xs leading-tight">
+════════════════════════════════════════════
+      </pre>
+    </div>
+    
     <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
       <!-- Brand -->
       <div class="md:col-span-2">
-        <a href="/" class="text-xl font-bold text-gray-900 dark:text-white">
-          mhtoin
+        <a href="/" class="text-xl font-mono font-bold text-gray-900 dark:text-terminal-text">
+          <span class="terminal-prompt"></span>mhtoin
         </a>
-        <p class="mt-2 text-gray-600 dark:text-gray-400 max-w-md">
-          Passionate developer crafting digital experiences with modern technologies. 
-          Always learning, always building.
+        <p class="mt-2 text-gray-600 dark:text-terminal-text-muted max-w-md font-mono text-sm">
+          <span class="text-terminal-green">//</span> Passionate developer crafting digital experiences with modern technologies.<br>
+          <span class="text-terminal-green">//</span> Always learning, always building.
         </p>
       </div>
       
       <!-- Quick Links -->
       <div>
-        <h3 class="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider">
-          Quick Links
+        <h3 class="text-sm font-mono font-semibold text-gray-900 dark:text-terminal-text uppercase tracking-wider border-b-2 border-terminal-border pb-2">
+          <span class="text-pastel-pink-500">[</span> Quick Links <span class="text-pastel-pink-500">]</span>
         </h3>
         <ul class="mt-4 space-y-2">
           {footerLinks.map(({ href, label }) => (
             <li>
               <a
                 href={href}
-                class="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                class="text-gray-600 dark:text-terminal-text-muted hover:text-terminal-green dark:hover:text-terminal-green transition-colors font-mono text-sm"
               >
-                {label}
+                <span class="text-terminal-green">&gt;</span> {label}
               </a>
             </li>
           ))}
@@ -62,8 +69,8 @@ const footerLinks = [
       
       <!-- Social Links -->
       <div>
-        <h3 class="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider">
-          Connect
+        <h3 class="text-sm font-mono font-semibold text-gray-900 dark:text-terminal-text uppercase tracking-wider border-b-2 border-terminal-border pb-2">
+          <span class="text-terminal-cyan">[</span> Connect <span class="text-terminal-cyan">]</span>
         </h3>
         <div class="mt-4 flex space-x-4">
           {socialLinks.map(({ name, href, icon }) => (
@@ -71,7 +78,7 @@ const footerLinks = [
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+              class="text-gray-400 hover:text-terminal-green dark:hover:text-terminal-green transition-colors border-2 border-transparent hover:border-terminal-green p-2"
               aria-label={`Follow on ${name}`}
             >
               {icon === 'github' && (
@@ -96,14 +103,14 @@ const footerLinks = [
     </div>
     
     <!-- Bottom Bar -->
-    <div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
+    <div class="mt-8 pt-8 border-t-2 border-terminal-border dark:border-terminal-border">
       <div class="flex flex-col md:flex-row justify-between items-center">
-        <p class="text-gray-500 dark:text-gray-400 text-sm">
-          © {currentYear} mhtoin. All rights reserved.
+        <p class="text-gray-500 dark:text-terminal-text-muted text-sm font-mono">
+          <span class="text-terminal-green">©</span> {currentYear} mhtoin. All rights reserved.
         </p>
-        <p class="text-gray-500 dark:text-gray-400 text-sm mt-2 md:mt-0">
-          Built with <span class="text-primary-600 dark:text-primary-400">Astro</span> & 
-          <span class="text-primary-600 dark:text-primary-400">Sanity</span>
+        <p class="text-gray-500 dark:text-terminal-text-muted text-sm mt-2 md:mt-0 font-mono">
+          Built with <span class="text-terminal-green">Astro</span> & 
+          <span class="text-pastel-pink-500">Sanity</span>
         </p>
       </div>
     </div>
