@@ -94,9 +94,9 @@ export default {
         // Custom pastel background colors
         pastel: {
           bg: '#fefbff',
-          'bg-dark': '#1e1b2e',
+          'bg-dark': '#2d2a3f',  // Lighter than original #1e1b2e
           surface: '#f7f4ff',
-          'surface-dark': '#2a2636',
+          'surface-dark': '#3e3a4f',  // Lighter than original #2a2636
         }
       },
       fontFamily: {

@@ -69,12 +69,12 @@ const education = [
         <!-- Profile Image -->
         <div class="order-2 lg:order-1">
           <div class="relative">
-            <div class="w-80 h-80 mx-auto bg-gradient-to-br from-lavender-300 via-primary-300 to-accent-300 dark:from-lavender-700 dark:via-primary-700 dark:to-accent-700 rounded-full flex items-center justify-center shadow-2xl">
+            <div class="w-80 h-80 mx-auto bg-gradient-to-br from-lavender-300 via-primary-300 to-accent-300 dark:from-lavender-400 dark:via-primary-400 dark:to-accent-400 rounded-full flex items-center justify-center shadow-2xl">
               <div class="text-9xl">👨‍💻</div>
             </div>
             <!-- Decorative elements -->
-            <div class="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-mint-200 to-sky-200 dark:from-mint-800 dark:to-sky-800 rounded-full opacity-60 animate-float shadow-lg"></div>
-            <div class="absolute -bottom-4 -left-4 w-32 h-32 bg-gradient-to-br from-peach-200 to-rose-200 dark:from-peach-800 dark:to-rose-800 rounded-full opacity-60 animate-float shadow-lg" style="animation-delay: 2s;"></div>
+            <div class="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-mint-200 to-sky-200 dark:from-mint-400 dark:to-sky-400 rounded-full opacity-60 animate-float shadow-lg"></div>
+            <div class="absolute -bottom-4 -left-4 w-32 h-32 bg-gradient-to-br from-peach-200 to-rose-200 dark:from-peach-400 dark:to-rose-400 rounded-full opacity-60 animate-float shadow-lg" style="animation-delay: 2s;"></div>
           </div>
         </div>
         
@@ -159,18 +159,18 @@ const education = [
         {profileData.skills?.map((skill, index) => (
           <div class={`card p-4 text-center hover:shadow-md transition-shadow ${
             index % 6 === 0 
-              ? 'bg-gradient-to-br from-lavender-100 to-primary-100 dark:from-lavender-800 dark:to-primary-800'
+              ? 'bg-gradient-to-br from-lavender-100 to-primary-100 dark:from-lavender-400 dark:to-primary-400'
               : index % 6 === 1
-              ? 'bg-gradient-to-br from-mint-100 to-sky-100 dark:from-mint-800 dark:to-sky-800'
+              ? 'bg-gradient-to-br from-mint-100 to-sky-100 dark:from-mint-400 dark:to-sky-400'
               : index % 6 === 2
-              ? 'bg-gradient-to-br from-peach-100 to-accent-100 dark:from-peach-800 dark:to-accent-800'
+              ? 'bg-gradient-to-br from-peach-100 to-accent-100 dark:from-peach-400 dark:to-accent-400'
               : index % 6 === 3
-              ? 'bg-gradient-to-br from-rose-100 to-accent-100 dark:from-rose-800 dark:to-accent-800'
+              ? 'bg-gradient-to-br from-rose-100 to-accent-100 dark:from-rose-400 dark:to-accent-400'
               : index % 6 === 4
-              ? 'bg-gradient-to-br from-sky-100 to-lavender-100 dark:from-sky-800 dark:to-lavender-800'
-              : 'bg-gradient-to-br from-accent-100 to-rose-100 dark:from-accent-800 dark:to-rose-800'
+              ? 'bg-gradient-to-br from-sky-100 to-lavender-100 dark:from-sky-400 dark:to-lavender-400'
+              : 'bg-gradient-to-br from-accent-100 to-rose-100 dark:from-accent-400 dark:to-rose-400'
           }`}>
-            <span class="text-gray-800 dark:text-gray-200 font-medium">
+            <span class="text-gray-800 dark:text-gray-100 font-medium">
               {skill}
             </span>
           </div>
