@@ -4,83 +4,11 @@ export const prerender = true;
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getProjects } from '@/lib/sanity';
 
-// Fetch projects from Sanity (will be empty for now but won't error)
+// Fetch projects from Sanity with GitHub fallback
 const projects = await getProjects();
 
-// Mock data for demonstration until Sanity is set up
-const mockProjects = [
-  {
-    _id: '1',
-    title: 'E-commerce Platform',
-    description: 'A modern e-commerce solution built with React, Node.js, and PostgreSQL. Features include user authentication, payment processing, inventory management, and admin dashboard.',
-    technologies: ['React', 'Node.js', 'PostgreSQL', 'Stripe', 'Redux', 'Express.js'],
-    image: { asset: { url: '/project-1.jpg' }, alt: 'E-commerce Platform' },
-    liveUrl: 'https://example.com',
-    githubUrl: 'https://github.com/mhtoin/ecommerce',
-    featured: true,
-    publishedAt: '2024-01-15'
-  },
-  {
-    _id: '2',
-    title: 'Task Management App',
-    description: 'A collaborative task management application with real-time updates, team collaboration features, and intuitive drag-and-drop interface.',
-    technologies: ['Vue.js', 'Firebase', 'TypeScript', 'Tailwind CSS', 'Vuex', 'Socket.io'],
-    image: { asset: { url: '/project-2.jpg' }, alt: 'Task Management App' },
-    liveUrl: 'https://example.com',
-    githubUrl: 'https://github.com/mhtoin/task-manager',
-    featured: true,
-    publishedAt: '2024-02-10'
-  },
-  {
-    _id: '3',
-    title: 'Weather Dashboard',
-    description: 'A beautiful weather dashboard with location-based forecasts, interactive charts, and customizable widgets for weather data visualization.',
-    technologies: ['Astro', 'TypeScript', 'OpenWeather API', 'Chart.js', 'Tailwind CSS'],
-    image: { asset: { url: '/project-3.jpg' }, alt: 'Weather Dashboard' },
-    liveUrl: 'https://example.com',
-    githubUrl: 'https://github.com/mhtoin/weather-dashboard',
-    featured: false,
-    publishedAt: '2024-03-05'
-  },
-  {
-    _id: '4',
-    title: 'Blog Platform',
-    description: 'A full-featured blog platform with markdown support, SEO optimization, and content management system for writers and publishers.',
-    technologies: ['Next.js', 'Sanity', 'Tailwind CSS', 'Vercel', 'TypeScript'],
-    image: { asset: { url: '/project-4.jpg' }, alt: 'Blog Platform' },
-    liveUrl: 'https://example.com',
-    githubUrl: 'https://github.com/mhtoin/blog-platform',
-    featured: false,
-    publishedAt: '2024-03-20'
-  },
-  {
-    _id: '5',
-    title: 'Portfolio Website',
-    description: 'This very portfolio website built with Astro and Sanity CMS, featuring dark/light themes, responsive design, and optimized performance.',
-    technologies: ['Astro', 'Sanity', 'Tailwind CSS', 'TypeScript', 'Vercel'],
-    image: { asset: { url: '/project-5.jpg' }, alt: 'Portfolio Website' },
-    liveUrl: 'https://example.com',
-    githubUrl: 'https://github.com/mhtoin/portfolio',
-    featured: true,
-    publishedAt: '2024-04-01'
-  },
-  {
-    _id: '6',
-    title: 'Fitness Tracker',
-    description: 'A comprehensive fitness tracking application with workout logging, progress analytics, and social features for fitness enthusiasts.',
-    technologies: ['React Native', 'Node.js', 'MongoDB', 'Express.js', 'JWT'],
-    image: { asset: { url: '/project-6.jpg' }, alt: 'Fitness Tracker' },
-    liveUrl: 'https://example.com',
-    githubUrl: 'https://github.com/mhtoin/fitness-tracker',
-    featured: false,
-    publishedAt: '2024-04-15'
-  }
-];
-
-const projectsToShow = projects.length > 0 ? projects : mockProjects;
-
 // Filter and sort options
-const allTechnologies = [...new Set(projectsToShow.flatMap(p => p.technologies || []))].sort();
+const allTechnologies = [...new Set(projects.flatMap(p => p.technologies || []))].sort();
 ---
 
 <BaseLayout 
@@ -132,7 +60,7 @@ const allTechnologies = [...new Set(projectsToShow.flatMap(p => p.technologies |
   <section class="section-padding">
     <div class="container-custom">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-grid">
-        {projectsToShow.map((project, index) => (
+        {projects.map((project, index) => (
           <div 
             class="project-card card-hover group"
             data-technologies={JSON.stringify(project.technologies?.map(t => t.toLowerCase()) || [])}

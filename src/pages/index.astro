@@ -5,41 +5,8 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Hero from '@/components/Hero.astro';
 import { getFeaturedProjects } from '@/lib/sanity';
 
-// Fetch featured projects from Sanity (will be empty for now but won't error)
+// Fetch featured projects from Sanity with GitHub fallback
 const featuredProjects = await getFeaturedProjects();
-
-// Mock data for demonstration until Sanity is set up
-const mockProjects = [
-  {
-    _id: '1',
-    title: 'E-commerce Platform',
-    description: 'A modern e-commerce solution built with React, Node.js, and PostgreSQL',
-    technologies: ['React', 'Node.js', 'PostgreSQL', 'Stripe'],
-    image: { asset: { url: '/project-1.jpg' }, alt: 'E-commerce Platform' },
-    liveUrl: 'https://example.com',
-    githubUrl: 'https://github.com/mhtoin/ecommerce'
-  },
-  {
-    _id: '2',
-    title: 'Task Management App',
-    description: 'A collaborative task management application with real-time updates',
-    technologies: ['Vue.js', 'Firebase', 'TypeScript', 'Tailwind CSS'],
-    image: { asset: { url: '/project-2.jpg' }, alt: 'Task Management App' },
-    liveUrl: 'https://example.com',
-    githubUrl: 'https://github.com/mhtoin/task-manager'
-  },
-  {
-    _id: '3',
-    title: 'Weather Dashboard',
-    description: 'A beautiful weather dashboard with location-based forecasts',
-    technologies: ['Astro', 'TypeScript', 'OpenWeather API', 'Chart.js'],
-    image: { asset: { url: '/project-3.jpg' }, alt: 'Weather Dashboard' },
-    liveUrl: 'https://example.com',
-    githubUrl: 'https://github.com/mhtoin/weather-dashboard'
-  }
-];
-
-const projectsToShow = featuredProjects.length > 0 ? featuredProjects : mockProjects;
 ---
 
 <BaseLayout title="mhtoin - Full-Stack Developer & Digital Creator">
@@ -60,7 +27,7 @@ const projectsToShow = featuredProjects.length > 0 ? featuredProjects : mockProj
       </div>
       
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {projectsToShow.map((project, index) => (
+        {featuredProjects.map((project, index) => (
           <div class="card-hover group">
             <div class="relative overflow-hidden rounded-t-lg">
               <div class={`aspect-video flex items-center justify-center ${
