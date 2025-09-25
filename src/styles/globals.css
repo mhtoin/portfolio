@@ -7,13 +7,28 @@
     box-sizing: border-box;
   }
   
+  /* Original theme styles (default) */
   body {
-    @apply bg-pastel-bg text-gray-900 dark:bg-pastel-bg-dark dark:text-gray-100;
+    @apply bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100;
     font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  /* Terminal theme styles */
+  .terminal-theme body {
+    @apply bg-pastel-bg text-gray-900 dark:bg-pastel-terminal-bg dark:text-terminal-text font-mono;
   }
   
   h1, h2, h3, h4, h5, h6 {
     @apply font-semibold tracking-tight;
+  }
+  
+  .terminal-theme h1,
+  .terminal-theme h2,
+  .terminal-theme h3,
+  .terminal-theme h4,
+  .terminal-theme h5,
+  .terminal-theme h6 {
+    @apply font-mono;
   }
   
   h1 {
@@ -42,6 +57,7 @@
 }
 
 @layer components {
+  /* Button components - Original theme (default) */
   .btn {
     @apply inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none;
   }
@@ -58,6 +74,38 @@
     @apply btn hover:bg-gray-100 dark:hover:bg-gray-800;
   }
   
+  .card {
+    @apply rounded-lg border bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 shadow-sm;
+  }
+  
+  .card-hover {
+    @apply card transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+  }
+
+  /* Terminal theme overrides */
+  .terminal-theme .btn {
+    @apply font-mono border-2 rounded-none focus-visible:ring-terminal-green;
+  }
+  
+  .terminal-theme .btn-primary {
+    @apply bg-terminal-green/20 text-terminal-green border-terminal-green hover:bg-terminal-green hover:text-terminal-bg dark:bg-terminal-green/20 dark:border-terminal-green dark:text-terminal-green dark:hover:bg-terminal-green dark:hover:text-terminal-bg;
+  }
+  
+  .terminal-theme .btn-secondary {
+    @apply bg-pastel-pink-100 text-pastel-pink-800 border-pastel-pink-300 hover:bg-pastel-pink-200 dark:bg-pastel-pink-900/20 dark:text-pastel-pink-300 dark:border-pastel-pink-700 dark:hover:bg-pastel-pink-800/30;
+  }
+  
+  .terminal-theme .btn-ghost {
+    @apply border-terminal-border hover:bg-terminal-bg-light dark:border-terminal-border dark:hover:bg-terminal-bg-light;
+  }
+  
+  .terminal-theme .card {
+    @apply border-2 bg-pastel-surface dark:bg-pastel-terminal-surface border-terminal-border dark:border-terminal-border font-mono rounded-none;
+  }
+  
+  .terminal-theme .card-hover {
+    @apply hover:border-terminal-green dark:hover:border-terminal-green hover:translate-y-0;
+  }
   .btn-sm {
     @apply h-9 px-3;
   }
@@ -69,15 +117,38 @@
   .btn-lg {
     @apply h-11 px-8;
   }
-  
-  .card {
-    @apply rounded-lg border bg-pastel-surface dark:bg-pastel-surface-dark border-primary-200 dark:border-primary-700 shadow-sm;
+
+  /* Terminal-style text effects (only visible in terminal theme) */
+  .terminal-theme .terminal-text {
+    @apply font-mono text-terminal-green;
   }
   
-  .card-hover {
-    @apply card transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+  .terminal-theme .terminal-prompt::before {
+    content: "$ ";
+    @apply text-terminal-green;
   }
   
+  .terminal-theme .ascii-art {
+    @apply font-mono text-xs leading-none whitespace-pre;
+  }
+  
+  .terminal-theme .pixel-border {
+    border-image: 
+      url("data:image/svg+xml,%3csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m0 0h100v100h-100z' fill='none' stroke='%2300ff41' stroke-width='2'/%3e%3c/svg%3e") 
+      2;
+  }
+  
+  /* Hide terminal-specific elements in original theme */
+  .ascii-art,
+  .terminal-prompt::before {
+    display: none;
+  }
+  
+  .terminal-theme .ascii-art,
+  .terminal-theme .terminal-prompt::before {
+    display: initial;
+  }
+
   .section-padding {
     @apply py-16 md:py-24;
   }
@@ -86,8 +157,18 @@
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
   
+  /* Original theme gradient */
   .text-gradient {
     @apply bg-gradient-to-r from-primary-500 via-accent-500 to-lavender-500 bg-clip-text text-transparent animate-gradient;
+  }
+  
+  /* Terminal theme gradient */
+  .terminal-theme .text-gradient {
+    @apply bg-gradient-to-r from-terminal-green via-pastel-pink-400 to-terminal-purple font-mono;
+  }
+  
+  .terminal-theme .text-terminal-gradient {
+    @apply bg-gradient-to-r from-terminal-green via-terminal-cyan to-terminal-pink bg-clip-text text-transparent font-mono;
   }
   
   .prose-custom {

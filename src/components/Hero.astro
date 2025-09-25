@@ -5,46 +5,91 @@
 <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
   <!-- Background Elements -->
   <div class="absolute inset-0">
-    <!-- Gradient Background -->
-    <div class="absolute inset-0 bg-gradient-to-br from-lavender-50 via-pastel-bg to-peach-50 dark:from-pastel-bg-dark dark:via-primary-900/20 dark:to-accent-900/20"></div>
+    <!-- Original theme background -->
+    <div class="absolute inset-0 bg-gradient-to-br from-lavender-50 via-white to-peach-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 terminal-theme:hidden"></div>
     
-    <!-- Animated Background Shapes -->
-    <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-br from-lavender-300 to-primary-300 dark:from-lavender-500 dark:to-primary-500 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-xl opacity-60 animate-float"></div>
-    <div class="absolute top-1/3 right-1/4 w-72 h-72 bg-gradient-to-br from-accent-300 to-rose-300 dark:from-accent-400 dark:to-rose-400 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-xl opacity-60 animate-float" style="animation-delay: 2s;"></div>
-    <div class="absolute bottom-1/4 left-1/3 w-80 h-80 bg-gradient-to-br from-mint-300 to-sky-300 dark:from-mint-400 dark:to-sky-400 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-xl opacity-60 animate-float" style="animation-delay: 4s;"></div>
-    <div class="absolute top-1/2 right-1/3 w-56 h-56 bg-gradient-to-br from-peach-300 to-accent-300 dark:from-peach-400 dark:to-accent-400 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-xl opacity-50 animate-float" style="animation-delay: 1s;"></div>
+    <!-- Terminal theme background -->
+    <div class="absolute inset-0 bg-gradient-to-br from-pastel-bg via-pastel-pink-50 to-lavender-50 dark:from-pastel-terminal-bg dark:via-pastel-terminal-bg dark:to-pastel-terminal-bg hidden terminal-theme:block"></div>
+    
+    <!-- Original theme animated shapes -->
+    <div class="terminal-theme:hidden">
+      <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-br from-lavender-300 to-primary-300 dark:from-lavender-500 dark:to-primary-500 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-xl opacity-60 animate-float"></div>
+      <div class="absolute top-1/3 right-1/4 w-72 h-72 bg-gradient-to-br from-accent-300 to-rose-300 dark:from-accent-400 dark:to-rose-400 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-xl opacity-60 animate-float" style="animation-delay: 2s;"></div>
+      <div class="absolute bottom-1/4 left-1/3 w-80 h-80 bg-gradient-to-br from-mint-300 to-sky-300 dark:from-mint-400 dark:to-sky-400 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-xl opacity-60 animate-float" style="animation-delay: 4s;"></div>
+    </div>
+    
+    <!-- Terminal theme elements -->
+    <div class="hidden terminal-theme:block">
+      <!-- Terminal-style pixel pattern overlay -->
+      <div class="absolute inset-0 opacity-10 dark:opacity-20" 
+           style="background-image: 
+             repeating-linear-gradient(0deg, #00ff41, #00ff41 1px, transparent 1px, transparent 20px),
+             repeating-linear-gradient(90deg, #00ff41, #00ff41 1px, transparent 1px, transparent 20px);">
+      </div>
+      
+      <!-- Animated terminal elements -->
+      <div class="absolute top-1/4 left-1/4 w-32 h-32 border-4 border-terminal-green/30 dark:border-terminal-green/50 animate-float" style="clip-path: polygon(0 0, 100% 0, 100% 50%, 50% 50%, 50% 100%, 0 100%)"></div>
+      <div class="absolute top-1/3 right-1/4 w-40 h-40 border-4 border-pastel-pink-400/40 dark:border-pastel-pink-400/60 animate-float" style="animation-delay: 2s; clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)"></div>
+      <div class="absolute bottom-1/4 left-1/3 w-36 h-36 border-4 border-terminal-cyan/30 dark:border-terminal-cyan/50 animate-float" style="animation-delay: 4s; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)"></div>
+    </div>
   </div>
   
   <!-- Content -->
   <div class="relative z-10 container-custom text-center">
     <div class="max-w-4xl mx-auto">
-      <!-- Greeting -->
-      <div class="animate-fade-in">
+      <!-- ASCII Art Header (Terminal theme only) -->
+      <div class="animate-fade-in mb-8 terminal-theme:block hidden">
+        <pre class="ascii-art text-terminal-green dark:text-terminal-green text-center text-xs md:text-sm leading-tight">
+ ██╗  ██╗███████╗██╗     ██╗      ██████╗ 
+ ██║  ██║██╔════╝██║     ██║     ██╔═══██╗
+ ███████║█████╗  ██║     ██║     ██║   ██║
+ ██╔══██║██╔══╝  ██║     ██║     ██║   ██║
+ ██║  ██║███████╗███████╗███████╗╚██████╔╝
+ ╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝ ╚═════╝ 
+        </pre>
+        <p class="text-lg md:text-xl text-gray-600 dark:text-terminal-text-muted mb-4 font-mono">
+          > I'm
+        </p>
+      </div>
+
+      <!-- Original theme greeting -->
+      <div class="animate-fade-in terminal-theme:hidden block">
         <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-4">
           👋 Hello, I'm
         </p>
       </div>
       
-      <!-- Name -->
+      <!-- Name with terminal effect -->
       <div class="animate-slide-up" style="animation-delay: 0.2s;">
-        <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6">
-          <span class="text-gradient">mhtoin</span>
+        <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 terminal-theme:font-mono">
+          <span class="text-gradient terminal-theme:text-terminal-gradient">mhtoin</span>
         </h1>
       </div>
       
-      <!-- Title -->
+      <!-- Title with typing effect -->
       <div class="animate-slide-up" style="animation-delay: 0.4s;">
-        <h2 class="text-2xl md:text-3xl lg:text-4xl font-semibold text-gray-700 dark:text-gray-300 mb-8">
-          Full-Stack Developer & Digital Creator
+        <h2 class="text-2xl md:text-3xl lg:text-4xl font-semibold text-gray-700 dark:text-gray-300 terminal-theme:text-gray-700 terminal-theme:dark:text-terminal-text mb-8 terminal-theme:font-mono">
+          <span class="terminal-prompt"></span>Full-Stack Developer & Digital Creator
         </h2>
       </div>
       
       <!-- Description -->
       <div class="animate-slide-up" style="animation-delay: 0.6s;">
-        <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-12 leading-relaxed">
-          I craft beautiful, functional web applications using modern technologies. 
-          Passionate about creating exceptional user experiences and writing clean, maintainable code.
-        </p>
+        <!-- Terminal theme description -->
+        <div class="max-w-2xl mx-auto mb-12 p-4 border-2 border-terminal-border dark:border-terminal-border bg-pastel-surface/50 dark:bg-pastel-terminal-surface/50 terminal-theme:block hidden">
+          <p class="text-lg md:text-xl text-gray-600 dark:text-terminal-text leading-relaxed font-mono">
+            <span class="text-terminal-green">//</span> I craft beautiful, functional web applications using modern technologies.<br>
+            <span class="text-terminal-green">//</span> Passionate about creating exceptional user experiences and clean code.
+          </p>
+        </div>
+        
+        <!-- Original theme description -->
+        <div class="max-w-2xl mx-auto mb-12 terminal-theme:hidden block">
+          <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
+            I craft beautiful, functional web applications using modern technologies. 
+            Passionate about creating exceptional user experiences and writing clean, maintainable code.
+          </p>
+        </div>
       </div>
       
       <!-- Call to Action Buttons -->
@@ -53,7 +98,7 @@
           href="/projects" 
           class="btn btn-primary btn-lg group"
         >
-          View My Work
+          <span class="terminal-prompt"></span>View My Work
           <svg class="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>
@@ -62,18 +107,18 @@
           href="/about" 
           class="btn btn-secondary btn-lg"
         >
-          About Me
+          <span class="text-pastel-pink-600 dark:text-pastel-pink-400 terminal-theme:inline hidden">&gt;</span>About Me
         </a>
       </div>
       
-      <!-- Social Links -->
+      <!-- Social Links with terminal styling -->
       <div class="animate-fade-in mt-16" style="animation-delay: 1s;">
         <div class="flex justify-center space-x-6">
           <a 
             href="https://github.com/mhtoin" 
             target="_blank" 
             rel="noopener noreferrer"
-            class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+            class="text-gray-400 hover:text-terminal-green dark:hover:text-terminal-green transition-colors border-2 border-transparent hover:border-terminal-green p-2"
             aria-label="GitHub Profile"
           >
             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -84,7 +129,7 @@
             href="https://linkedin.com/in/mhtoin" 
             target="_blank" 
             rel="noopener noreferrer"
-            class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+            class="text-gray-400 hover:text-pastel-pink-400 dark:hover:text-pastel-pink-400 transition-colors border-2 border-transparent hover:border-pastel-pink-400 p-2"
             aria-label="LinkedIn Profile"
           >
             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -95,7 +140,7 @@
             href="https://twitter.com/mhtoin" 
             target="_blank" 
             rel="noopener noreferrer"
-            class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+            class="text-gray-400 hover:text-terminal-cyan dark:hover:text-terminal-cyan transition-colors border-2 border-transparent hover:border-terminal-cyan p-2"
             aria-label="Twitter Profile"
           >
             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -107,10 +152,17 @@
     </div>
   </div>
   
-  <!-- Scroll Indicator -->
+  <!-- Scroll indicator -->
   <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-    <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-    </svg>
+    <!-- Original theme -->
+    <div class="terminal-theme:hidden">
+      <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+      </svg>
+    </div>
+    <!-- Terminal theme -->
+    <div class="text-terminal-green dark:text-terminal-green font-mono text-sm hidden terminal-theme:block">
+      ↓ scroll
+    </div>
   </div>
 </section>
