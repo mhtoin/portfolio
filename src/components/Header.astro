@@ -1,5 +1,5 @@
 ---
-import ThemeToggle from './ThemeToggle.astro';
+import ThemeSelector from './ThemeSelector.astro';
 
 const currentPath = Astro.url.pathname;
 
@@ -12,14 +12,14 @@ const navItems = [
 ];
 ---
 
-<header class="sticky top-0 z-50 w-full border-b-2 border-terminal-border dark:border-terminal-border bg-pastel-surface/90 dark:bg-pastel-terminal-surface/90 backdrop-blur-md">
+<header class="sticky top-0 z-50 w-full border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md terminal-theme:border-b-2 terminal-theme:border-terminal-border terminal-theme:bg-pastel-surface/90 terminal-theme:dark:bg-pastel-terminal-surface/90">
   <nav class="container-custom">
     <div class="flex items-center justify-between h-16">
       <!-- Logo -->
       <div class="flex items-center">
         <a 
           href="/" 
-          class="text-xl font-mono font-bold text-gray-900 dark:text-terminal-green hover:text-terminal-green dark:hover:text-terminal-cyan transition-colors focus-visible terminal-prompt"
+          class="text-xl font-bold text-gray-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 transition-colors focus-visible terminal-theme:font-mono terminal-theme:text-gray-900 terminal-theme:dark:text-terminal-green terminal-theme:hover:text-terminal-green terminal-theme:dark:hover:text-terminal-cyan terminal-prompt"
           aria-label="Go to homepage"
         >
           mhtoin
@@ -31,10 +31,10 @@ const navItems = [
         {navItems.map(({ href, label, external }) => (
           <a
             href={href}
-            class={`text-sm font-mono font-medium transition-colors hover:text-terminal-green dark:hover:text-terminal-cyan focus-visible ${
+            class={`text-sm font-medium transition-colors hover:text-primary-600 dark:hover:text-primary-400 focus-visible terminal-theme:font-mono terminal-theme:hover:text-terminal-green terminal-theme:dark:hover:text-terminal-cyan ${
               currentPath === href 
-                ? 'text-terminal-green dark:text-terminal-green' 
-                : 'text-gray-600 dark:text-terminal-text-muted'
+                ? 'text-primary-600 dark:text-primary-400 terminal-theme:text-terminal-green terminal-theme:dark:text-terminal-green' 
+                : 'text-gray-600 dark:text-gray-300 terminal-theme:text-gray-600 terminal-theme:dark:text-terminal-text-muted'
             } ${external ? 'opacity-75' : ''}`}
             target={external ? '_blank' : undefined}
             rel={external ? 'noopener noreferrer' : undefined}
@@ -49,14 +49,14 @@ const navItems = [
         ))}
       </div>
       
-      <!-- Theme Toggle & Mobile Menu Button -->
+      <!-- Theme Selector & Mobile Menu Button -->
       <div class="flex items-center space-x-2">
-        <ThemeToggle />
+        <ThemeSelector />
         
         <!-- Mobile Menu Button -->
         <button
           type="button"
-          class="md:hidden inline-flex items-center justify-center p-2 border-2 border-terminal-border text-gray-500 dark:text-terminal-text-muted hover:text-terminal-green dark:hover:text-terminal-green hover:border-terminal-green focus-visible"
+          class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus-visible terminal-theme:border-2 terminal-theme:border-terminal-border terminal-theme:rounded-none terminal-theme:text-gray-500 terminal-theme:dark:text-terminal-text-muted terminal-theme:hover:text-terminal-green terminal-theme:dark:hover:text-terminal-green terminal-theme:hover:border-terminal-green terminal-theme:hover:bg-transparent"
           aria-expanded="false"
           aria-label="Open main menu"
           id="mobile-menu-button"
@@ -69,15 +69,15 @@ const navItems = [
     </div>
     
     <!-- Mobile Navigation Menu -->
-    <div class="md:hidden hidden border-t-2 border-terminal-border" id="mobile-menu">
+    <div class="md:hidden hidden border-t border-gray-200 dark:border-gray-700 terminal-theme:border-t-2 terminal-theme:border-terminal-border" id="mobile-menu">
       <div class="px-2 pt-2 pb-3 space-y-1">
         {navItems.map(({ href, label, external }) => (
           <a
             href={href}
-            class={`block px-3 py-2 border-2 border-transparent text-base font-mono font-medium transition-colors hover:text-terminal-green dark:hover:text-terminal-cyan hover:border-terminal-green focus-visible ${
+            class={`block px-3 py-2 rounded-md text-base font-medium transition-colors hover:text-primary-600 dark:hover:text-primary-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus-visible terminal-theme:rounded-none terminal-theme:border-2 terminal-theme:border-transparent terminal-theme:font-mono terminal-theme:hover:text-terminal-green terminal-theme:dark:hover:text-terminal-cyan terminal-theme:hover:border-terminal-green terminal-theme:hover:bg-transparent ${
               currentPath === href 
-                ? 'text-terminal-green dark:text-terminal-green border-terminal-green' 
-                : 'text-gray-600 dark:text-terminal-text'
+                ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20 terminal-theme:text-terminal-green terminal-theme:dark:text-terminal-green terminal-theme:border-terminal-green terminal-theme:bg-transparent' 
+                : 'text-gray-600 dark:text-gray-300 terminal-theme:text-gray-600 terminal-theme:dark:text-terminal-text'
             } ${external ? 'opacity-75' : ''}`}
             target={external ? '_blank' : undefined}
             rel={external ? 'noopener noreferrer' : undefined}

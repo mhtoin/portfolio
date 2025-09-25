@@ -61,22 +61,71 @@ const socialImageURL = new URL(image, Astro.url).href;
     <script is:inline>
       // Initialize theme before page renders to prevent flash
       (function() {
-        function getStoredTheme() {
-          return typeof localStorage !== 'undefined' ? localStorage.getItem('portfolio-theme') : null;
+        function getStoredColorMode() {
+          return typeof localStorage !== 'undefined' ? localStorage.getItem('portfolio-color-mode') : null;
         }
         
-        function getSystemTheme() {
+        function getStoredVisualTheme() {
+          return typeof localStorage !== 'undefined' ? localStorage.getItem('portfolio-visual-theme') : null;
+        }
+        
+        function getSystemColorMode() {
           return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
         }
         
-        const theme = getStoredTheme() || getSystemTheme();
-        document.documentElement.classList.toggle('dark', theme === 'dark');
+        const colorMode = getStoredColorMode() || getSystemColorMode();
+        const visualTheme = getStoredVisualTheme() || 'terminal'; // Default to terminal theme
+        
+        document.documentElement.classList.toggle('dark', colorMode === 'dark');
+        document.documentElement.classList.toggle('terminal-theme', visualTheme === 'terminal');
       })();
     </script>
     
     <ViewTransitions />
+    
+    <!-- View Transition Styles -->
+    <style>
+      /* Smooth theme transitions */
+      @keyframes fade-in {
+        from {
+          opacity: 0;
+        }
+      }
+
+      @keyframes fade-out {
+        to {
+          opacity: 0;
+        }
+      }
+
+      @keyframes slide-from-right {
+        from {
+          transform: translateX(30px);
+        }
+      }
+
+      @keyframes slide-to-left {
+        to {
+          transform: translateX(-30px);
+        }
+      }
+
+      ::view-transition-root {
+        view-transition-name: root;
+      }
+
+      ::view-transition-old(root) {
+        animation: 90ms cubic-bezier(0.4, 0, 1, 1) both fade-out,
+                   300ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-left;
+      }
+
+      ::view-transition-new(root) {
+        animation: 210ms cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in, 
+                   300ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-right;
+      }
+    </style>
   </head>
-  <body class="bg-pastel-bg dark:bg-pastel-terminal-bg text-gray-900 dark:text-terminal-text transition-colors duration-300 font-mono">
+  <body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300 terminal-theme:bg-pastel-bg terminal-theme:text-gray-900 terminal-theme:dark:bg-pastel-terminal-bg terminal-theme:dark:text-terminal-text terminal-theme:font-mono">
     <div class="min-h-screen flex flex-col">
       <Header />
       

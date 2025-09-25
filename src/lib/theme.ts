@@ -1,46 +1,115 @@
-export type Theme = 'light' | 'dark';
+export type ColorMode = 'light' | 'dark';
+export type VisualTheme = 'original' | 'terminal';
 
-export const THEME_KEY = 'portfolio-theme';
-
-export function getStoredTheme(): Theme | null {
-  if (typeof localStorage === 'undefined') return null;
-  return localStorage.getItem(THEME_KEY) as Theme | null;
+export interface ThemeState {
+  colorMode: ColorMode;
+  visualTheme: VisualTheme;
 }
 
-export function getSystemTheme(): Theme {
+export const COLOR_MODE_KEY = 'portfolio-color-mode';
+export const VISUAL_THEME_KEY = 'portfolio-visual-theme';
+
+// Color mode functions (light/dark)
+export function getStoredColorMode(): ColorMode | null {
+  if (typeof localStorage === 'undefined') return null;
+  return localStorage.getItem(COLOR_MODE_KEY) as ColorMode | null;
+}
+
+export function getSystemColorMode(): ColorMode {
   if (typeof window === 'undefined') return 'light';
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
 
-export function getCurrentTheme(): Theme {
-  return getStoredTheme() || getSystemTheme();
+export function getCurrentColorMode(): ColorMode {
+  return getStoredColorMode() || getSystemColorMode();
 }
 
-export function setTheme(theme: Theme): void {
+// Visual theme functions (original/terminal)
+export function getStoredVisualTheme(): VisualTheme | null {
+  if (typeof localStorage === 'undefined') return null;
+  return localStorage.getItem(VISUAL_THEME_KEY) as VisualTheme | null;
+}
+
+export function getCurrentVisualTheme(): VisualTheme {
+  return getStoredVisualTheme() || 'terminal'; // Default to terminal since that's what we implemented
+}
+
+// Combined theme state
+export function getCurrentThemeState(): ThemeState {
+  return {
+    colorMode: getCurrentColorMode(),
+    visualTheme: getCurrentVisualTheme()
+  };
+}
+
+export function setColorMode(colorMode: ColorMode): void {
   if (typeof localStorage === 'undefined') return;
   
-  localStorage.setItem(THEME_KEY, theme);
-  document.documentElement.classList.toggle('dark', theme === 'dark');
+  localStorage.setItem(COLOR_MODE_KEY, colorMode);
+  document.documentElement.classList.toggle('dark', colorMode === 'dark');
 }
 
-export function toggleTheme(): Theme {
-  const currentTheme = getCurrentTheme();
-  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-  setTheme(newTheme);
-  return newTheme;
+export function setVisualTheme(visualTheme: VisualTheme): void {
+  if (typeof localStorage === 'undefined') return;
+  
+  localStorage.setItem(VISUAL_THEME_KEY, visualTheme);
+  document.documentElement.classList.toggle('terminal-theme', visualTheme === 'terminal');
+  
+  // Trigger view transition if supported
+  if (document.startViewTransition) {
+    document.startViewTransition(() => {
+      document.documentElement.classList.toggle('terminal-theme', visualTheme === 'terminal');
+    });
+  }
+}
+
+export function setThemeState(themeState: ThemeState): void {
+  setColorMode(themeState.colorMode);
+  setVisualTheme(themeState.visualTheme);
+}
+
+export function toggleColorMode(): ColorMode {
+  const currentColorMode = getCurrentColorMode();
+  const newColorMode = currentColorMode === 'dark' ? 'light' : 'dark';
+  
+  // Use view transition for color mode changes too
+  if (document.startViewTransition) {
+    document.startViewTransition(() => {
+      setColorMode(newColorMode);
+    });
+  } else {
+    setColorMode(newColorMode);
+  }
+  
+  return newColorMode;
+}
+
+export function toggleVisualTheme(): VisualTheme {
+  const currentVisualTheme = getCurrentVisualTheme();
+  const newVisualTheme = currentVisualTheme === 'terminal' ? 'original' : 'terminal';
+  setVisualTheme(newVisualTheme);
+  return newVisualTheme;
 }
 
 export function initializeTheme(): void {
   if (typeof window === 'undefined') return;
   
-  const theme = getCurrentTheme();
-  document.documentElement.classList.toggle('dark', theme === 'dark');
+  const colorMode = getCurrentColorMode();
+  const visualTheme = getCurrentVisualTheme();
   
-  // Listen for system theme changes
+  document.documentElement.classList.toggle('dark', colorMode === 'dark');
+  document.documentElement.classList.toggle('terminal-theme', visualTheme === 'terminal');
+  
+  // Listen for system color mode changes
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-    if (!getStoredTheme()) {
-      const newTheme = e.matches ? 'dark' : 'light';
-      document.documentElement.classList.toggle('dark', newTheme === 'dark');
+    if (!getStoredColorMode()) {
+      const newColorMode = e.matches ? 'dark' : 'light';
+      document.documentElement.classList.toggle('dark', newColorMode === 'dark');
     }
   });
+}
+
+// Legacy support for existing theme toggle
+export function toggleTheme(): ColorMode {
+  return toggleColorMode();
 }
